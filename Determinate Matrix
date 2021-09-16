@@ -1,0 +1,77 @@
+#include <iostream>
+#include <ctime>
+#include <cmath>
+
+
+void print_matrix(int** arr, int size) {
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			std::cout << arr[i][j] << ' ';
+		}
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
+
+void clear_dest(int** arr, int size)
+{
+	for (int i = 0; i < size; i++) {
+		delete[] arr[i];
+	}
+	delete[] arr;
+}
+
+int sum_Det(int** arr, int size) {
+	if (size == 1)
+		return arr[0][0];
+	else if (size == 2)
+		return arr[0][0] * arr[1][1] - arr[0][1] * arr[1][0];
+	else {
+		int sum = 0;
+		for (int y = 0; y < size; y++) {
+			int** tmp_arr = new int* [size - 1];
+			for (int i = 0; i < size - 1; i++) {
+				tmp_arr[i] = new int[size - 1];
+			}
+			for (int i = 1; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					if (j != y)
+					{
+						if (j < y)
+							tmp_arr[i - 1][j] = arr[i][j];
+						else
+							tmp_arr[i - 1][j - 1] = arr[i][j];
+					}
+					}
+			}
+			 sum+= pow(-1, y + 2) * arr[0][y] * sum_Det(tmp_arr, size - 1);
+			 clear_dest(tmp_arr, size - 1);
+		}
+		return sum;
+	}
+}
+
+
+int main()
+{
+
+	int size;
+	std::cout << "Enter a matrix size:";
+	std::cin >>size;
+	int** arr = new int* [size];
+	for (int i = 0; i < size; i++) {
+		arr[i] = new int[size];
+	}
+	srand(time(0));
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			arr[i][j] = 0 + rand() % 100;
+		}
+	}
+
+	print_matrix(arr, size);
+	std::cout << "determinanat this matrix:" << sum_Det(arr, size);
+	clear_dest(arr, size);
+	
+	
+}
