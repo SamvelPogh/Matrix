@@ -21,13 +21,11 @@ void clear_dest(int** arr, int size)
 	delete[] arr;
 }
 
-int sum_Det(int** arr, int size) {
+long long int sum_Det(int** arr, int size) {
 	if (size == 1)
 		return arr[0][0];
-	else if (size == 2)
-		return arr[0][0] * arr[1][1] - arr[0][1] * arr[1][0];
 	else {
-		int sum = 0;
+		long long int sum = 0;
 		for (int y = 0; y < size; y++) {
 			int** tmp_arr = new int* [size - 1];
 			for (int i = 0; i < size - 1; i++) {
@@ -44,7 +42,8 @@ int sum_Det(int** arr, int size) {
 					}
 					}
 			}
-			 sum+= pow(-1, y + 2) * arr[0][y] * sum_Det(tmp_arr, size - 1);
+			int tmp=((y+2)%2)?1:-1;
+			 sum+= tmp * arr[0][y] * sum_Det(tmp_arr, size - 1);
 			 clear_dest(tmp_arr, size - 1);
 		}
 		return sum;
