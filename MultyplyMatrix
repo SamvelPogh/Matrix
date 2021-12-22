@@ -1,0 +1,15 @@
+# Matrix
+void Multiply(int * aMatrix, int * bMatrix,int row,int row2,int col1,int col2) {
+	
+	int product[3][3] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+
+	for (int row = 0; row < 3; row++) {
+		for (int col = 0; col < 3; col++) {
+			for (int inner = 0; inner < 2; inner++) {
+				product[row][col] += aMatrix[row][inner] * bMatrix[inner][col];
+			}
+			std::cout << product[row][col] << "  ";
+		}
+		std::cout << "\n";
+	}
+}
