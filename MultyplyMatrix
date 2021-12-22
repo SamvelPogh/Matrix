@@ -1,7 +1,10 @@
 # Matrix
 void Multiply(int * aMatrix, int * bMatrix,int row,int row2,int col1,int col2) {
-	
-	int product[3][3] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+	if(col1==row2){
+	int**product=new int*[row1];
+	for(int i=0;i<row;++i){
+	product[i]=new int[col2];
+	}
 
 	for (int row = 0; row < 3; row++) {
 		for (int col = 0; col < 3; col++) {
@@ -11,5 +14,9 @@ void Multiply(int * aMatrix, int * bMatrix,int row,int row2,int col1,int col2) {
 			std::cout << product[row][col] << "  ";
 		}
 		std::cout << "\n";
+	}
+	}
+	else{
+	cout<<"matrix cant be multiply";
 	}
 }
