@@ -1,22 +1,23 @@
 # Matrix
-void Multiply(int * aMatrix, int * bMatrix,int row,int row2,int col1,int col2) {
-	if(col1==row2){
-	int**product=new int*[row1];
-	for(int i=0;i<row;++i){
-	product[i]=new int[col2];
-	}
-
-	for (int row = 0; row < 3; row++) {
-		for (int col = 0; col < 3; col++) {
-			for (int inner = 0; inner < 2; inner++) {
-				product[row][col] += aMatrix[row][inner] * bMatrix[inner][col];
-			}
-			std::cout << product[row][col] << "  ";
+void Multiply(int** aMatrix, int** bMatrix, int row1, int row2, int col1, int col2) {
+	if (col1 == row2) {
+		int** product = new int* [row1];
+		for (int i = 0; i < row1; ++i) {
+			product[i] = new int[col2];
 		}
-		std::cout << "\n";
+
+		for (int i= 0; i <row1; i++) {
+			for (int j= 0; j < col2; j++) {
+				for (int inner = 0; inner < 2; inner++) {
+					product[i][j] += aMatrix[i][inner] * bMatrix[inner][j];
+				}
+				std::cout << product[i][j] << "  ";
+			}
+			std::cout << "\n";
+		}
 	}
-	}
-	else{
-	cout<<"matrix cant be multiply";
+	else {
+		cout << "matrix cant be multiply";
 	}
 }
+
