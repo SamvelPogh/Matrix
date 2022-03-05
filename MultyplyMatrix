@@ -1,23 +1,58 @@
-# Matrix
-void Multiply(int** aMatrix, int** bMatrix, int row1, int row2, int col1, int col2) {
-	if (col1 == row2) {
-		int** product = new int* [row1];
-		for (int i = 0; i < row1; ++i) {
-			product[i] = new int[col2];
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <infstr.h>
+#include <vector>
+using namespace std;
+
+#define R1 4            
+#define C1 4            
+#define R2 4            
+#define C2 4            
+
+void mulMat(int mat1[][C1], int mat2[][C2]) {
+	int rslt[R1][C2];
+
+
+	for (int i = 0; i < R1; ++i) {
+		for (int j = 0; j < C2; ++j) {
+			rslt[i][j] = 0;
+
+			for (int k = 0; k < R2; ++k) {
+				rslt[i][j] += mat1[i][k] * mat2[k][j];
+			}
+
+			cout << rslt[i][j] << "\t";
 		}
 
-		for (int i= 0; i <row1; i++) {
-			for (int j= 0; j < col2; j++) {
-				for (int inner = 0; inner < 2; inner++) {
-					product[i][j] += aMatrix[i][inner] * bMatrix[inner][j];
-				}
-				std::cout << product[i][j] << "  ";
-			}
-			std::cout << "\n";
-		}
-	}
-	else {
-		cout << "matrix cant be multiply";
+		cout << endl;
 	}
 }
 
+int main(void) {
+	
+	int mat1[R1][C1] = {
+			{1, 1, 1, 1},
+			{2, 2, 2, 2},
+			{3, 3, 3, 3},
+			{4, 4, 4, 4}
+	};
+
+	int mat2[R2][C2] = {
+			{1, 1, 1, 1},
+			{2, 2, 2, 2},
+			{3, 3, 3, 3},
+			{4, 4, 4, 4}
+	};
+
+
+	if (C1 != R2) {
+		cout << "The number of columns in Matrix-1 != rows in "
+			"Matrix-2" << endl;
+			
+	}
+	else {
+		mulMat(mat1, mat2);
+	}
+}
+	
