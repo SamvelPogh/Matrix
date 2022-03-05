@@ -1,0 +1,119 @@
+#include <iostream>
+
+
+
+int main() {
+
+	int i, j, n, m; //solution of systems of linear algebraic equations by the Gauss method
+	float** matrix;
+	std::cout << "kolichestvo uravneniy: ";
+	std::cin >> n;//
+	std::cout << "kolichestvo peremenix: ";
+	std::cin >> m;//
+	m += 1;
+	//creat masiv
+	matrix = new float* [n];
+	for (i = 0; i < n; i++) { matrix[i] = new float[m]; }
+
+	//initialization mas
+
+	for (i = 0; i < n; i++)
+
+		for (j = 0; j < m; j++)
+		{
+			std::cout << " Element " << "[" << i + 1 << " , " << j + 1 << "]: ";
+
+			std::cin >> matrix[i][j];
+		}
+
+   
+  std::cout << "rasshirenaya matrica" << std::endl;
+  for (i = 0; i < n; i++)
+ {
+	for (j = 0; j < m; j++)
+		std::cout << matrix[i][j] << " ";
+	std::cout << std::endl;
+ }
+ std::cout << std::endl;
+
+  
+  //prividenia k verxnutreugolnomu vidu
+ float  tmp;
+ int k;
+ float* xx = new float[m];
+
+ for (i = 0; i < n; i++)
+ {
+	tmp = matrix[i][i];
+
+	std::cout << "tmp1 = matrix [" << i << "," << i << "] =" << matrix[i][i];     
+	
+
+	for (j = n; j >= i; j--) {
+
+		
+		float vb = matrix[i][j];
+		std::cout << std::endl;
+
+		matrix[i][j] /= tmp;
+
+		std::cout << "matrix [" << i << "," << j << "](" << vb << ")" << " /= " << "tmp1(" << tmp << ") == " << matrix[i][j];
+		
+	}
+	std::cout << std::endl;
+	std::cout << "matrix posle delenie tmp1" << std::endl; 
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+			std::cout << matrix[i][j] << " ";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+
+	for (j = i + 1; j < n; j++)
+	{
+		std::cout << std::endl;
+		tmp = matrix[j][i];
+		std::cout << "tmp2 = matrix [" << j << "," << i << "] = " << matrix[j][i];
+		   
+
+		for (k = n; k >= i; k--) {
+
+			
+			float vb = matrix[j][k];
+			std::cout << std::endl;
+			matrix[j][k] -= tmp * matrix[i][k];
+			std::cout << "matrix [" << j << "," << k << "](" << vb << ")" << " -= tmp2" << "(" << tmp << ")" << " * " << "matrix [" << i << "," << k << "](" << matrix[i][k] << ")" << " == " << matrix[j][k];
+			              
+		}
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
+
+
+ std::cout << "matrica v verxnetreugolnom vide" << std::endl;
+ for (i = 0; i < n; i++)
+{
+	for (j = 0; j < m; j++)
+		std::cout << matrix[i][j] << " ";
+	std::cout << std::endl;
+}
+ std::cout << std::endl;
+
+ xx[n - 1] = matrix[n - 1][n];
+for (i = n - 2; i >= 0; i--)
+{
+	xx[i] = matrix[i][n];
+	for (j = i + 1; j < n; j++) xx[i] -= matrix[i][j] * xx[j];
+}
+
+
+ std::cout << "reshenie SLAU" << std::endl;
+for (i = 0; i < n; i++)
+	std::cout << xx[i] << " ";
+std::cout << std::endl;
+
+delete[] matrix;
+
+}
